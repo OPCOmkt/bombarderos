@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cervecería Bombarderos | Taproom & Packs</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Oswald (estilo aviación/stencils), Inter (legibilidad minimalista) y Pacifico (acentos script) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bombardero: {
+                            navy: '#074363',
+                            navyDark: '#042B40',
+                            cream: '#F8F6EE',
+                            creamDark: '#EFECE0',
+                            gold: '#D39B38',
+                            goldLight: '#E5B45B',
+                            sky: '#89D0DB',
+                            skyLight: '#BCE6ED'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Oswald', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        script: ['Pacifico', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Ocultar scrollbar en navegación horizontal manteniendo funcionalidad */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Patrón sutil de rayas diagonales inspirado en el menú físico */
+        .aviation-stripes {
+            background-image: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 4px,
+                rgba(211, 155, 56, 0.25) 4px,
+                rgba(211, 155, 56, 0.25) 6px
+            );
+        }
+        .aviation-stripes-navy {
+            background-image: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 4px,
+                rgba(7, 67, 99, 0.15) 4px,
+                rgba(7, 67, 99, 0.15) 6px
+            );
+        }
+    </style>
+</head>
+<body class="bg-bombardero-cream text-bombardero-navy font-sans antialiased selection:bg-bombardero-gold selection:text-white pb-24">
+
+    <!-- HEADER / HERO COMPACTO -->
+    <header class="bg-bombardero-navy text-bombardero-cream relative overflow-hidden">
+        <!-- Decoración superior -->
+        <div class="h-1.5 w-full aviation-stripes"></div>
+        
+        <div class="max-w-3xl mx-auto px-5 pt-6 pb-8">
+            <div class="flex items-center justify-between mb-6">
+                <!-- Emblema SVG Minimalista de Bombarderos -->
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-bombardero-navyDark border border-bombardero-gold/40 flex items-center justify-center shadow-inner">
+                        <svg class="w-7 h-7 text-bombardero-cream" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <!-- Silueta frontal estilizada de avión bombardero -->
+                            <path d="M32 10V44M8 32H56M22 28V36M42 28V36M26 44H38" stroke-linecap="round"/>
+                            <circle cx="32" cy="32" r="4" fill="#D39B38" stroke="none"/>
+                            <circle cx="22" cy="32" r="2.5" fill="currentColor" stroke="none"/>
+                            <circle cx="42" cy="32" r="2.5" fill="currentColor" stroke="none"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5 text-[10px] tracking-[0.2em] text-bombardero-gold font-semibold uppercase">
+                            <span>Est. 2017</span>
+                            <span>•</span>
+                            <span>Hermosillo, Son.</span>
+                        </div>
+                        <h1 class="font-display text-2xl sm:text-3xl tracking-wider font-bold uppercase leading-none mt-0.5">
+                            BOMBARDEROS
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Badge de Estado (Abierto/Horario) -->
+                <button onclick="toggleInfoModal()" class="text-right group focus:outline-none">
+                    <span id="status-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-bombardero-navyDark border border-bombardero-sky/30 text-bombardero-sky">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Taproom Info
+                    </span>
+                </button>
+            </div>
+
+            <!-- Copy de Bienvenida -->
+            <p class="text-sm sm:text-base text-bombardero-cream/85 font-light max-w-xl leading-relaxed">
+                ¡Aviadores! Explora nuestra carta artesanal del taproom o arma tu <span class="text-bombardero-gold font-medium">6-Pack / 12-Pack</span> para llevar directo a casa.
+            </p>
+        </div>
+
+        <!-- SELECTOR PRINCIPAL DE MODO (TABS) -->
+        <div class="max-w-3xl mx-auto px-5">
+            <div class="grid grid-cols-2 gap-2 p-1.5 bg-bombardero-navyDark rounded-t-2xl border-t border-x border-white/10">
+                <button id="tab-menu" onclick="switchView('menu')" class="py-2.5 px-4 rounded-xl font-display uppercase tracking-wider text-sm sm:text-base font-semibold transition-all duration-200 bg-bombardero-cream text-bombardero-navy shadow-sm flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    Menú Taproom
+                </button>
+                <button id="tab-packs" onclick="switchView('packs')" class="py-2.5 px-4 rounded-xl font-display uppercase tracking-wider text-sm sm:text-base font-semibold transition-all duration-200 text-bombardero-cream/70 hover:text-white flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4 text-bombardero-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                    Armar Pack
+                    <span class="bg-bombardero-gold text-bombardero-navyDark text-[10px] font-sans font-bold px-1.5 py-0.5 rounded-full">6 / 12</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- VISTA 1: MENÚ INTERACTIVO DEL TAPROOM                                 -->
+    <!-- ===================================================================== -->
+    <main id="view-menu" class="max-w-3xl mx-auto">
+        
+        <!-- Barra Pegajosa de Categorías -->
+        <nav class="sticky top-0 z-30 bg-bombardero-cream/95 backdrop-blur-md border-b border-bombardero-navy/10 px-5 py-3">
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar" id="category-pills">
+                <button onclick="filterCategory('cervezas')" data-cat="cervezas" class="cat-pill active whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase transition-all bg-bombardero-navy text-bombardero-cream shadow-sm">
+                    Cervezas Artesanales
+                </button>
+                <button onclick="filterCategory('botanas')" data-cat="botanas" class="cat-pill whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase transition-all bg-bombardero-creamDark text-bombardero-navy/70 hover:text-bombardero-navy">
+                    Comida y Botanas
+                </button>
+                <button onclick="filterCategory('burgers')" data-cat="burgers" class="cat-pill whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase transition-all bg-bombardero-creamDark text-bombardero-navy/70 hover:text-bombardero-navy">
+                    Burgers
+                </button>
+                <button onclick="filterCategory('bebidas')" data-cat="bebidas" class="cat-pill whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase transition-all bg-bombardero-creamDark text-bombardero-navy/70 hover:text-bombardero-navy">
+                    Mixología y Sin Alcohol
+                </button>
+            </div>
+        </nav>
+
+        <!-- Contenedor Dinámico del Menú -->
+        <div class="px-5 pt-6 space-y-8" id="menu-content">
+            <!-- Renderizado vía JS -->
+        </div>
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- VISTA 2: CONFIGURADOR DE 6-PACK Y 12-PACK                             -->
+    <!-- ===================================================================== -->
+    <section id="view-packs" class="hidden max-w-3xl mx-auto px-5 pt-6">
+        
+        <!-- Selector de Tamaño de Caja -->
+        <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-bombardero-navy/10 mb-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                <div>
+                    <span class="text-[11px] font-bold uppercase tracking-widest text-bombardero-gold">Paso 1 • Elige tu misión</span>
+                    <h2 class="font-display text-xl uppercase font-bold text-bombardero-navy">Tamaño del Pack</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-2 bg-bombardero-cream p-1 rounded-xl">
+                    <button id="btn-size-6" onclick="setPackCapacity(6)" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all bg-bombardero-navy text-white shadow-sm">
+                        6-Pack <span class="block text-[10px] font-normal opacity-80">6 Latas (355ml)</span>
+                    </button>
+                    <button id="btn-size-12" onclick="setPackCapacity(12)" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-bombardero-navy/70 hover:text-bombardero-navy">
+                        12-Pack <span class="block text-[10px] font-normal text-bombardero-gold font-semibold">10% Desc. Automático</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Visualizador de Slots de la Caja -->
+            <div class="bg-bombardero-cream/70 rounded-xl p-3.5 border border-bombardero-navy/10">
+                <div class="flex items-center justify-between text-xs mb-2.5">
+                    <span class="font-medium text-bombardero-navy">Latas seleccionadas: <strong id="pack-count-label" class="font-display text-sm">0 / 6</strong></span>
+                    <button onclick="clearPack()" class="text-bombardero-navy/50 hover:text-red-600 underline text-[11px]">Vaciar caja</button>
+                </div>
+                
+                <!-- Grid de Ranuras Visuales -->
+                <div id="pack-slots-visual" class="grid grid-cols-6 gap-2">
+                    <!-- Slots generados dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Presets Rápidos -->
+            <div class="mt-3 pt-3 border-t border-bombardero-navy/5 flex items-center gap-2 overflow-x-auto no-scrollbar">
+                <span class="text-[11px] text-bombardero-navy/60 whitespace-nowrap">Llenado rápido:</span>
+                <button onclick="applyPreset('mix')" class="whitespace-nowrap px-2.5 py-1 rounded-md bg-bombardero-sky/25 hover:bg-bombardero-sky/40 text-bombardero-navy text-[11px] font-medium transition">
+                    ✈️ Mix Aviador
+                </button>
+                <button onclick="applyPreset('lupulo')" class="whitespace-nowrap px-2.5 py-1 rounded-md bg-bombardero-gold/20 hover:bg-bombardero-gold/30 text-bombardero-navy text-[11px] font-medium transition">
+                    🌿 Escuadrón IPA
+                </button>
+                <button onclick="applyPreset('ligeras')" class="whitespace-nowrap px-2.5 py-1 rounded-md bg-bombardero-creamDark hover:bg-bombardero-navy/10 text-bombardero-navy text-[11px] font-medium transition">
+                    ☀️ Refrescantes
+                </button>
+            </div>
+        </div>
+
+        <!-- Lista de Cervezas Disponibles para el Pack -->
+        <div class="mb-4 flex items-end justify-between">
+            <div>
+                <span class="text-[11px] font-bold uppercase tracking-widest text-bombardero-gold">Paso 2 • Selecciona tus latas</span>
+                <h3 class="font-display text-xl uppercase font-bold text-bombardero-navy">Cervezas en Lata (355 ml)</h3>
+            </div>
+        </div>
+
+        <div id="pack-beers-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pb-10">
+            <!-- Tarjetas de latas generadas vía JS -->
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- BARRA FLOTANTE INFERIOR DE RESUMEN DE PACK (STICKY BOTTOM)            -->
+    <!-- ===================================================================== -->
+    <div id="pack-checkout-bar" class="hidden fixed bottom-0 inset-x-0 z-40 bg-bombardero-navy text-bombardero-cream border-t border-bombardero-gold/30 shadow-2xl transition-transform duration-300">
+        <div class="max-w-3xl mx-auto px-5 py-3.5 flex items-center justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span id="bar-status-pill" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-bombardero-gold text-bombardero-navyDark">
+                        Faltan 6 latas
+                    </span>
+                    <span id="bar-discount-badge" class="hidden text-[11px] text-bombardero-sky font-medium">
+                        ¡10% OFF aplicado!
+                    </span>
+                </div>
+                <div class="flex items-baseline gap-2 mt-0.5">
+                    <span class="font-display text-2xl font-bold text-white" id="bar-total-price">$0</span>
+                    <span class="text-xs text-bombardero-cream/60" id="bar-subtitle">MXN • Pickup o Envío</span>
+                </div>
+            </div>
+
+            <button id="btn-order-whatsapp" onclick="openOrderModal()" disabled class="px-5 py-3 rounded-xl font-display uppercase tracking-wider text-sm font-bold transition-all flex items-center gap-2 bg-white/10 text-white/40 cursor-not-allowed">
+                <span>Pedir Pack</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL DE CONFIRMACIÓN DE PEDIDO (WHATSAPP)                            -->
+    <!-- ===================================================================== -->
+    <div id="order-modal" class="hidden fixed inset-0 z-50 bg-bombardero-navyDark/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="bg-bombardero-cream w-full max-w-md rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl border border-bombardero-navy/10 animate-fade-in">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-bombardero-gold">Plan de Vuelo</span>
+                    <h3 class="font-display text-2xl font-bold uppercase text-bombardero-navy">Resumen de tu Pack</h3>
+                </div>
+                <button onclick="closeOrderModal()" class="w-8 h-8 rounded-full bg-bombardero-creamDark flex items-center justify-center text-bombardero-navy hover:bg-bombardero-navy hover:text-white transition">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Lista de cervezas elegidas -->
+            <div id="modal-pack-summary" class="bg-white rounded-2xl p-4 border border-bombardero-navy/10 space-y-2 max-h-48 overflow-y-auto mb-4 text-sm">
+                <!-- Items vía JS -->
+            </div>
+
+            <!-- Opciones de Entrega -->
+            <div class="space-y-3 mb-5">
+                <label class="block text-xs font-bold uppercase tracking-wider text-bombardero-navy">Modalidad de entrega</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="selectDelivery('pickup')" id="del-pickup" class="p-2.5 rounded-xl border-2 border-bombardero-navy bg-bombardero-navy/5 text-left transition">
+                        <div class="font-bold text-xs text-bombardero-navy">📍 Recoger en Taproom</div>
+                        <div class="text-[10px] text-bombardero-navy/70">Blvd. Hidalgo #70</div>
+                    </button>
+                    <button type="button" onclick="selectDelivery('domicilio')" id="del-domicilio" class="p-2.5 rounded-xl border border-bombardero-navy/20 bg-white text-left transition">
+                        <div class="font-bold text-xs text-bombardero-navy">🛵 Envío en Hermosillo</div>
+                        <div class="text-[10px] text-bombardero-navy/70">Costo según zona</div>
+                    </button>
+                </div>
+
+                <input type="text" id="customer-name" placeholder="Tu nombre (Ej. Carlos)" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-bombardero-navy/20 text-sm focus:outline-none focus:border-bombardero-navy">
+                <input type="text" id="customer-address" placeholder="Colonia y calle (para envío a domicilio)" class="hidden w-full px-3.5 py-2.5 rounded-xl bg-white border border-bombardero-navy/20 text-sm focus:outline-none focus:border-bombardero-navy">
+            </div>
+
+            <!-- Total y Botón Final -->
+            <div class="flex items-center justify-between pt-3 border-t border-bombardero-navy/10 mb-4">
+                <span class="text-sm font-medium text-bombardero-navy/80">Total estimado:</span>
+                <span id="modal-total" class="font-display text-2xl font-bold text-bombardero-navy">$0 MXN</span>
+            </div>
+
+            <button onclick="sendWhatsAppOrder()" class="w-full py-3.5 px-5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-display uppercase tracking-wider font-bold text-base shadow-lg flex items-center justify-center gap-2 transition">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
+                Enviar Pedido por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL DE INFORMACIÓN DEL TAPROOM (HORARIOS Y UBICACIÓN)               -->
+    <!-- ===================================================================== -->
+    <div id="info-modal" class="hidden fixed inset-0 z-50 bg-bombardero-navyDark/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-bombardero-navy text-bombardero-cream w-full max-w-sm rounded-3xl p-6 border border-bombardero-gold/30 shadow-2xl">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-display text-2xl font-bold uppercase tracking-wide text-bombardero-gold">Base de Operaciones</h3>
+                <button onclick="toggleInfoModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white">✕</button>
+            </div>
+            
+            <div class="space-y-4 text-sm">
+                <div>
+                    <div class="text-xs uppercase tracking-wider text-bombardero-sky font-bold mb-1">Horarios de Vuelo</div>
+                    <ul class="space-y-1 text-bombardero-cream/90">
+                        <li class="flex justify-between"><span>Lun - Mié:</span> <strong>4:00 PM – 12:00 AM</strong></li>
+                        <li class="flex justify-between"><span>Jue - Vie:</span> <strong>5:00 PM – 1:00 AM</strong></li>
+                        <li class="flex justify-between"><span>Sáb - Dom:</span> <strong>12:00 PM – 1:00 AM</strong></li>
+                    </ul>
+                </div>
+
+                <div class="pt-3 border-t border-white/10">
+                    <div class="text-xs uppercase tracking-wider text-bombardero-sky font-bold mb-1">Ubicación</div>
+                    <p class="text-bombardero-cream/90">Blvd. Miguel Hidalgo #70, Col. El Centenario, 83260 Hermosillo, Sonora.</p>
+                </div>
+
+                <div class="pt-3 border-t border-white/10 flex flex-col gap-2">
+                    <a href="https://maps.google.com/?q=Blvd.+Miguel+Hidalgo+70,+El+Centenario,+Hermosillo,+Sonora" target="_blank" class="w-full py-2.5 rounded-xl bg-bombardero-gold text-bombardero-navyDark font-display uppercase font-bold text-center tracking-wider">
+                        Abrir en Google Maps
+                    </a>
+                    <a href="https://instagram.com/cerveceria_bombarderos" target="_blank" class="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-display uppercase font-bold text-center tracking-wider">
+                        @cerveceria_bombarderos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICACIÓN -->
+    <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-bombardero-navyDark text-white px-4 py-2 rounded-full text-xs font-medium shadow-lg border border-bombardero-gold/40 opacity-0 pointer-events-none transition-opacity duration-300">
+        Mensaje
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- LÓGICA DE DATOS E INTERACTIVIDAD                                      -->
+    <!-- ===================================================================== -->
+    <script>
+        // BASE DE DATOS REAL EXTRAÍDA DEL MENÚ DE CERVECERÍA BOMBARDEROS
+        const CERVEZAS = [
+            {
+                id: 'ligera',
+                nombre: 'La Ligera',
+                estilo: 'Light Lager',
+                abv: '3.9%',
+                ibu: '15',
+                precio8: 45,
+                precio12: 60,
+                precioLata: 55,
+                colorHex: '#F3D060',
+                destacada: false,
+                descripcion: 'La ligera de la casa, de cuerpo seco y con leves notas florales.',
+                maridaje: 'Papitas Botaneras o Carne Seca'
+            },
+            {
+                id: 'gose',
+                nombre: 'Gose José',
+                estilo: 'Contemporary-Style Gose',
+                abv: '3.5%',
+                ibu: '8',
+                precio8: 45,
+                precio12: 60,
+                precioLata: 60,
+                colorHex: '#E8E391',
+                destacada: false,
+                descripcion: 'Cerveza ácida y salada, con infusión de pepino, perfecta para el calor o mariscos.',
+                maridaje: 'Aguachile de Papada'
+            },
+            {
+                id: 'aleron',
+                nombre: 'Alerón',
+                estilo: 'Session IPA',
+                abv: '4.5%',
+                ibu: '35',
+                precio8: 60,
+                precio12: 80,
+                precioLata: 65,
+                colorHex: '#E59F3C',
+                destacada: true,
+                badge: 'Favorita de la casa',
+                descripcion: 'Notas afrutadas como mango maduro, durazno y cítricos. Amargor medio y alta bebilidad.',
+                maridaje: 'Boneless'
+            },
+            {
+                id: 'hangar',
+                nombre: 'Hangar',
+                estilo: 'American Pale Ale',
+                abv: '5.8%',
+                ibu: '32',
+                precio8: 60,
+                precio12: 80,
+                precioLata: 65,
+                colorHex: '#D87D2A',
+                destacada: false,
+                descripcion: 'Ligeramente maltosa, con notas cítricas, a pino y amargor moderado.',
+                maridaje: 'Classic Bite Burger'
+            },
+            {
+                id: 'bruers',
+                nombre: 'Bruers del Norte',
+                estilo: 'West Coast IPA',
+                abv: '6.0%',
+                ibu: '56',
+                precio8: 60,
+                precio12: 80,
+                precioLata: 70,
+                colorHex: '#DF8B26',
+                destacada: false,
+                badge: 'Colab. Cerveza Bruer',
+                descripcion: 'Una colaboración pensada para el calor, refrescantes notas a frutos cítricos y durazno.',
+                maridaje: 'Coliflor Bañada'
+            },
+            {
+                id: 'turbina',
+                nombre: 'Turbina',
+                estilo: 'Hazy IPA',
+                abv: '7.1%',
+                ibu: '30',
+                precio8: 65,
+                precio12: 90,
+                precioLata: 75,
+                colorHex: '#F2B84B',
+                destacada: false,
+                descripcion: 'Sabor a frutos tropicales, mango maduro, durazno y cítricos como toronja y limón amarillo. Cuerpo sedoso.',
+                maridaje: 'Korean Bite Burger'
+            },
+            {
+                id: 'fuselaje',
+                nombre: 'Fuselaje',
+                estilo: 'American IPA',
+                abv: '6.0%',
+                ibu: '62',
+                precio8: 60,
+                precio12: 80,
+                precioLata: 70,
+                colorHex: '#C96A1B',
+                destacada: false,
+                descripcion: 'IPA clásica americana con notas naranja, pino y un ligero floral, con amargor alto y final seco.',
+                maridaje: 'Spicy Hummus'
+            },
+            {
+                id: 'fortress',
+                nombre: 'Flying Fortress',
+                estilo: 'Amber Ale',
+                abv: '5.1%',
+                ibu: '27',
+                precio8: 50,
+                precio12: 70,
+                precioLata: 65,
+                colorHex: '#9E3B18',
+                destacada: true,
+                badge: 'Medalla / Clásica',
+                descripcion: 'Cerveza de cuerpo medio, con aroma y sabor a caramelo, frutos secos como nuez y ligero chocolate al fondo.',
+                maridaje: 'Bombardero Fries'
+            },
+            {
+                id: 'cerro',
+                nombre: 'Cerro Colorado',
+                estilo: 'Vienna-Style Lager',
+                abv: '4.7%',
+                ibu: '22',
+                precio8: 50,
+                precio12: 70,
+                precioLata: 60,
+                colorHex: '#B64B1E',
+                destacada: false,
+                descripcion: 'Caracterizada por su aroma a malta, un ligero dulzor y tostado de fondo. Lager rica en sabor.',
+                maridaje: 'Gyozas Botaneras'
+            },
+            {
+                id: 'cajanegra',
+                nombre: 'Caja Negra',
+                estilo: 'American Porter',
+                abv: '6.0%',
+                ibu: '34',
+                precio8: 60,
+                precio12: 80,
+                precioLata: 70,
+                colorHex: '#231712',
+                destacada: false,
+                descripcion: 'Cuerpo medio con notas intensas a café, chocolate y ligero tostado final.',
+                maridaje: 'Buffalo Fries'
+            }
+        ];
+
+        const BOTANAS = [
+            { nombre: 'Papitas Botaneras', precio: 180, maridaje: 'La Ligera', desc: 'Chips jalapeño, carne seca, tomate, pepino, cebolla morada, cilantro y salsas negras.' },
+            { nombre: 'Carne Seca y Tomates Salseados', precio: 140, maridaje: 'La Ligera', desc: '50 grs. de carne seca, tomate rebanado, cebolla morada, pepino y cilantro en salsa negra.' },
+            { nombre: 'Aguachile de Papada', precio: 185, maridaje: 'Gose José', desc: '120 grs. de papada asada, bañada en aguachile de chiltepín y cilantro fresco.' },
+            { nombre: 'Coliflor Bañada', precio: 150, maridaje: 'Bruers del Norte', desc: '300 grs. de floretes de coliflor bañada en mayo de chili crunch, parmesano y limón eureka.' },
+            { nombre: 'Gyozas Botaneras', precio: 150, maridaje: 'Cerro Colorado', desc: '6 gyozas fritas rellenas de cerdo y vegetales, sobre espejo de salsa asiática y cilantro.' },
+            { nombre: 'Spicy Hummus', precio: 145, maridaje: 'Fuselaje', desc: '120 grs. de hummus, chili crunch, páprika, cilantro y garbanzos fritos con chips de pan pita.' },
+            { nombre: 'Boneless (300 grs)', precio: 185, maridaje: 'Alerón', desc: 'Pechuga de pollo frita bañada en Buffalo garlic, Spicy BBQ o Mango habanero con aderezo.' },
+            { nombre: 'Bombardero Fries', precio: 150, maridaje: 'Flying Fortress', desc: '250 grs. de papas a la francesa, 100 grs. carne Rancho 17, queso americano, tocino y aderezo bite.' },
+            { nombre: 'Buffalo Fries', precio: 150, maridaje: 'Caja Negra', desc: '250 grs. de papas a la francesa, 120 grs. de pollo frito, salsa búfalo y aderezo bite.' }
+        ];
+
+        const BURGERS = [
+            { nombre: 'Classic Bite', sencilla: 150, doble: 190, desc: 'Pan brioche, 100 grs. carne Rancho 17, queso americano, lechuga, tomate, cebolla y aderezo bite.' },
+            { nombre: 'Bacon Bite', sencilla: 160, doble: 200, desc: 'Pan brioche, 100 grs. carne Rancho 17, queso americano, tocino, cebolla y aderezo bite.' },
+            { nombre: 'Jalapeño Bite', sencilla: 160, doble: 200, desc: 'Pan brioche, 100 grs. carne Rancho 17, queso americano, tocino, jalapeño tatemado y cebolla asada.' },
+            { nombre: 'Texan Bite', sencilla: 160, doble: 200, desc: 'Pan brioche, 100 grs. carne Rancho 17, queso americano, tocino, cebolla crispy y salsa BBQ.' },
+            { nombre: 'Korean Bite', sencilla: 160, doble: 200, desc: 'Pan brioche, 100 grs. carne Rancho 17, queso americano, tocino, cebolla caramelizada y aderezo emy.' },
+            { nombre: 'Catadoc\'s Bite', sencilla: 160, doble: 200, desc: 'Pan brioche volteado, 100 grs. carne Rancho 17, queso americano, tocino, jalapeño asado y cebolla crispy.' }
+        ];
+
+        const BEBIDAS_EXTRA = {
+            cocteles: [
+                { nombre: 'Mezcalita', precio: 110 },
+                { nombre: 'Bacanora Clandestino', precio: 110 },
+                { nombre: 'Carajillo', precio: 110 },
+                { nombre: 'Paloma', precio: 95 },
+                { nombre: 'Gin Tonic', precio: 95 },
+                { nombre: 'Vino Blanco / Rosado (750ml)', precio: 420 }
+            ],
+            sinAlcohol: [
+                { nombre: 'Limonadas (Natural, Fresa, Mango, Sandía, Arnold Palmer)', precio: '70 - 75' },
+                { nombre: 'Mentada Kombucha', precio: 65 },
+                { nombre: 'Sodas / Agua Mineral', precio: '35 - 40' },
+                { nombre: 'Clamato Preparado', precio: 35 }
+            ]
+        };
+
+        // ESTADO DE LA APLICACIÓN
+        let currentView = 'menu';
+        let currentCategory = 'cervezas';
+        let packCapacity = 6; // 6 o 12
+        let packCart = {}; // { idCerveza: cantidad }
+        let deliveryMethod = 'pickup';
+
+        // INICIALIZACIÓN
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenuCategory('cervezas');
+            renderPackBuilder();
+        });
+
+        // CAMBIO DE VISTA (MENÚ VS ARMADOR DE PACKS)
+        function switchView(view) {
+            currentView = view;
+            const viewMenu = document.getElementById('view-menu');
+            const viewPacks = document.getElementById('view-packs');
+            const tabMenu = document.getElementById('tab-menu');
+            const tabPacks = document.getElementById('tab-packs');
+            const checkoutBar = document.getElementById('pack-checkout-bar');
+
+            if (view === 'menu') {
+                viewMenu.classList.remove('hidden');
+                viewPacks.classList.add('hidden');
+                checkoutBar.classList.add('hidden');
+
+                tabMenu.className = 'py-2.5 px-4 rounded-xl font-display uppercase tracking-wider text-sm sm:text-base font-semibold transition-all duration-200 bg-bombardero-cream text-bombardero-navy shadow-sm flex items-center justify-center gap-2';
+                tabPacks.className = 'py-2.5 px-4 rounded-xl font-display uppercase tracking-wider text-sm sm:text-base font-semibold transition-all duration-200 text-bombardero-cream/70 hover:text-white flex items-center justify-center gap-2';
+            } else {
+                viewMenu.classList.add('hidden');
+                viewPacks.classList.remove('hidden');
+                checkoutBar.classList.remove('hidden');
+
+                tabPacks.className = 'py-2.5 px-4 rounded-xl font-display uppercase tracking-wider text-sm sm:text-base font-semibold transition-all duration-200 bg-bombardero-cream text-bombardero-navy shadow-sm flex items-center justify-center gap-2';
+                tabMenu.className = 'py-2.5 px-4 rounded-xl font-display uppercase tracking-wider text-sm sm:text-base font-semibold transition-all duration-200 text-bombardero-cream/70 hover:text-white flex items-center justify-center gap-2';
+                
+                updatePackUI();
+            }
+        }
+
+        // FILTRADO DE CATEGORÍAS DEL MENÚ
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-pill').forEach(pill => {
+                if (pill.dataset.cat === cat) {
+                    pill.className = 'cat-pill active whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase transition-all bg-bombardero-navy text-bombardero-cream shadow-sm';
+                } else {
+                    pill.className = 'cat-pill whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase transition-all bg-bombardero-creamDark text-bombardero-navy/70 hover:text-bombardero-navy';
+                }
+            });
+            renderMenuCategory(cat);
+        }
+
+        // RENDERIZADO DEL MENÚ DEL TAPROOM
+        function renderMenuCategory(cat) {
+            const container = document.getElementById('menu-content');
+            
+            if (cat === 'cervezas') {
+                container.innerHTML = `
+                    <!-- Banner Flight Sampler -->
+                    <div class="bg-bombardero-navy text-bombardero-cream rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 shadow-sm border border-bombardero-gold/30">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-script text-bombardero-gold text-lg">Flight Sampler</span>
+                                <span class="text-[10px] uppercase tracking-widest bg-white/10 px-2 py-0.5 rounded">Para indecisos</span>
+                            </div>
+                            <p class="text-xs text-bombardero-cream/80 mt-1">5 cervezas de la casa a elegir en vasos de 4 oz.</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-display text-2xl font-bold text-bombardero-gold">$180</span>
+                        </div>
+                    </div>
+
+                    <!-- Encabezado de tabla -->
+                    <div class="flex items-center justify-between border-b border-bombardero-navy/15 pb-2">
+                        <h2 class="font-display text-xl font-bold uppercase tracking-wide">De Barril en Taproom</h2>
+                        <div class="flex gap-4 text-[11px] font-bold uppercase tracking-wider text-bombardero-navy/60">
+                            <span class="w-10 text-right">8 oz</span>
+                            <span class="w-10 text-right">12 oz</span>
+                        </div>
+                    </div>
+
+                    <!-- Lista de Cervezas -->
+                    <div class="space-y-4">
+                        ${CERVEZAS.map(beer => `
+                            <div class="bg-white rounded-2xl p-4 border border-bombardero-navy/10 shadow-sm hover:border-bombardero-navy/30 transition">
+                                <div class="flex items-start justify-between gap-3">
+                                    <div class="flex items-start gap-3">
+                                        <!-- Indicador de color SRM de la cerveza -->
+                                        <div class="w-3.5 h-10 rounded-full mt-1 shrink-0 shadow-inner border border-black/10" style="background-color: ${beer.colorHex};" title="Color de la cerveza"></div>
+                                        <div>
+                                            <div class="flex flex-wrap items-center gap-2">
+                                                <h3 class="font-display text-lg font-bold uppercase tracking-wide text-bombardero-navy">${beer.nombre}</h3>
+                                                ${beer.badge ? `<span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-bombardero-gold/20 text-bombardero-navy">${beer.badge}</span>` : ''}
+                                            </div>
+                                            <div class="text-[11px] font-bold uppercase tracking-wider text-bombardero-gold mt-0.5">
+                                                ${beer.estilo} • ${beer.abv} ALC / ${beer.ibu} IBU
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Precios 8oz y 12oz -->
+                                    <div class="flex gap-4 font-display text-lg font-bold text-bombardero-navy shrink-0">
+                                        <span class="w-10 text-right text-bombardero-navy/70">$${beer.precio8}</span>
+                                        <span class="w-10 text-right">$${beer.precio12}</span>
+                                    </div>
+                                </div>
+
+                                <p class="text-xs sm:text-sm text-bombardero-navy/80 mt-2.5 leading-relaxed">
+                                    ${beer.descripcion}
+                                </p>
+
+                                <div class="mt-3 pt-2.5 border-t border-bombardero-navy/5 flex items-center justify-between">
+                                    <span class="text-[11px] text-bombardero-navy/60">
+                                        🍽️ Marida con: <strong class="text-bombardero-navy">${beer.maridaje}</strong>
+                                    </span>
+                                    <button onclick="quickAddFromMenu('${beer.id}')" class="text-[11px] font-bold uppercase tracking-wider text-bombardero-navy hover:text-bombardero-gold flex items-center gap-1 transition">
+                                        + Añadir a Pack
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (cat === 'botanas') {
+                container.innerHTML = `
+                    <div>
+                        <h2 class="font-display text-xl font-bold uppercase tracking-wide mb-1">Comida y Botanas</h2>
+                        <p class="text-xs text-bombardero-navy/60 mb-4">Cada platillo incluye nuestra recomendación de maridaje artesanal.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                            ${BOTANAS.map(item => `
+                                <div class="bg-white rounded-2xl p-4 border border-bombardero-navy/10 shadow-sm flex flex-col justify-between">
+                                    <div>
+                                        <div class="flex justify-between items-start gap-2">
+                                            <h3 class="font-display text-base font-bold uppercase text-bombardero-navy">${item.nombre}</h3>
+                                            <span class="font-display text-lg font-bold text-bombardero-navy">$${item.precio}</span>
+                                        </div>
+                                        <span class="inline-block mt-1 px-2 py-0.5 rounded bg-bombardero-navy text-bombardero-cream text-[10px] font-bold uppercase tracking-wider">
+                                            Pídela con ${item.maridaje}
+                                        </span>
+                                        <p class="text-xs text-bombardero-navy/75 mt-2 leading-relaxed">${item.desc}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            } else if (cat === 'burgers') {
+                container.innerHTML = `
+                    <div>
+                        <div class="bg-bombardero-sky/30 rounded-2xl p-4 mb-4 border border-bombardero-navy/10 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-bombardero-navy/70">By Burger Bite</span>
+                                <h2 class="font-display text-xl font-bold uppercase text-bombardero-navy">Burgers Artesanales</h2>
+                                <p class="text-xs text-bombardero-navy/80 mt-0.5">Todas acompañadas de 150 grs. de papas a la francesa.</p>
+                            </div>
+                            <div class="text-right text-[11px] font-bold uppercase text-bombardero-navy">
+                                <div>Sencilla / Doble</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            ${BURGERS.map(b => `
+                                <div class="bg-white rounded-2xl p-4 border border-bombardero-navy/10 shadow-sm">
+                                    <div class="flex justify-between items-center">
+                                        <h3 class="font-display text-lg font-bold uppercase text-bombardero-navy">${b.nombre}</h3>
+                                        <div class="flex gap-3 font-display text-lg font-bold">
+                                            <span class="text-bombardero-navy/70">$${b.sencilla}</span>
+                                            <span class="text-bombardero-navy">$${b.doble}</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-bombardero-navy/75 mt-1.5 leading-relaxed">${b.desc}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            } else if (cat === 'bebidas') {
+                container.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="bg-bombardero-navy text-bombardero-cream rounded-2xl p-5">
+                            <h3 class="font-display text-lg font-bold uppercase tracking-wider text-bombardero-gold mb-3">Coctelería y Destilados</h3>
+                            <div class="space-y-2.5 divide-y divide-white/10">
+                                ${BEBIDAS_EXTRA.cocteles.map(c => `
+                                    <div class="pt-2.5 first:pt-0 flex justify-between items-center text-sm">
+                                        <span class="font-medium">${c.nombre}</span>
+                                        <span class="font-display font-bold text-base text-bombardero-sky">$${c.precio}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl p-5 border border-bombardero-navy/10">
+                            <h3 class="font-display text-lg font-bold uppercase tracking-wider text-bombardero-navy mb-3">Sin Alcohol y Refrescantes</h3>
+                            <div class="space-y-2.5 divide-y divide-bombardero-navy/10">
+                                ${BEBIDAS_EXTRA.sinAlcohol.map(s => `
+                                    <div class="pt-2.5 first:pt-0 flex justify-between items-center text-sm">
+                                        <span class="text-bombardero-navy/85">${s.nombre}</span>
+                                        <span class="font-display font-bold text-base text-bombardero-navy">$${s.precio}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // =====================================================================
+        // LÓGICA DEL ARMADOR DE 6-PACK Y 12-PACK
+        // =====================================================================
+        function getTotalCans() {
+            return Object.values(packCart).reduce((acc, qty) => acc + qty, 0);
+        }
+
+        function setPackCapacity(size) {
+            packCapacity = size;
+            const btn6 = document.getElementById('btn-size-6');
+            const btn12 = document.getElementById('btn-size-12');
+
+            if (size === 6) {
+                btn6.className = 'px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all bg-bombardero-navy text-white shadow-sm';
+                btn12.className = 'px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-bombardero-navy/70 hover:text-bombardero-navy';
+                
+                // Si tenía más de 6 latas y bajó a 6-pack, recortamos excedente
+                let currentTotal = getTotalCans();
+                if (currentTotal > 6) {
+                    let excess = currentTotal - 6;
+                    for (let id in packCart) {
+                        if (excess <= 0) break;
+                        let remove = Math.min(packCart[id], excess);
+                        packCart[id] -= remove;
+                        excess -= remove;
+                        if (packCart[id] === 0) delete packCart[id];
+                    }
+                    showToast('Se ajustó tu selección a 6 latas');
+                }
+            } else {
+                btn12.className = 'px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all bg-bombardero-navy text-white shadow-sm';
+                btn6.className = 'px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-bombardero-navy/70 hover:text-bombardero-navy';
+            }
+
+            renderPackBuilder();
+            updatePackUI();
+        }
+
+        function addCan(beerId) {
+            const total = getTotalCans();
+            if (total >= packCapacity) {
+                showToast(`Tu ${packCapacity}-Pack ya está lleno. Cambia a 12-Pack o quita una lata.`);
+                return;
+            }
+            packCart[beerId] = (packCart[beerId] || 0) + 1;
+            renderPackBuilder();
+            updatePackUI();
+        }
+
+        function removeCan(beerId) {
+            if (!packCart[beerId]) return;
+            packCart[beerId] -= 1;
+            if (packCart[beerId] <= 0) {
+                delete packCart[beerId];
+            }
+            renderPackBuilder();
+            updatePackUI();
+        }
+
+        function quickAddFromMenu(beerId) {
+            addCan(beerId);
+            switchView('packs');
+            const beer = CERVEZAS.find(b => b.id === beerId);
+            showToast(`+1 ${beer.nombre} agregada a tu Pack`);
+        }
+
+        function clearPack() {
+            packCart = {};
+            renderPackBuilder();
+            updatePackUI();
+        }
+
+        function applyPreset(type) {
+            packCart = {};
+            if (packCapacity === 6) {
+                if (type === 'mix') {
+                    packCart = { ligera: 1, aleron: 2, fortress: 1, turbina: 1, cerro: 1 };
+                } else if (type === 'lupulo') {
+                    packCart = { aleron: 2, bruers: 2, turbina: 1, fuselaje: 1 };
+                } else if (type === 'ligeras') {
+                    packCart = { ligera: 3, gose: 2, cerro: 1 };
+                }
+            } else {
+                if (type === 'mix') {
+                    packCart = { ligera: 2, aleron: 3, fortress: 2, turbina: 2, cerro: 2, cajanegra: 1 };
+                } else if (type === 'lupulo') {
+                    packCart = { aleron: 4, bruers: 3, turbina: 3, fuselaje: 2 };
+                } else if (type === 'ligeras') {
+                    packCart = { ligera: 5, gose: 4, cerro: 3 };
+                }
+            }
+            renderPackBuilder();
+            updatePackUI();
+            showToast('¡Pack completado con recomendación de la casa!');
+        }
+
+        function renderPackBuilder() {
+            const listContainer = document.getElementById('pack-beers-list');
+            const totalCans = getTotalCans();
+            const isFull = totalCans >= packCapacity;
+
+            listContainer.innerHTML = CERVEZAS.map(beer => {
+                const qty = packCart[beer.id] || 0;
+                return `
+                    <div class="bg-white rounded-2xl p-4 border ${qty > 0 ? 'border-bombardero-navy ring-1 ring-bombardero-navy/20' : 'border-bombardero-navy/10'} shadow-sm flex flex-col justify-between transition">
+                        <div>
+                            <div class="flex items-start justify-between gap-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full shrink-0" style="background-color: ${beer.colorHex};"></span>
+                                    <h4 class="font-display text-base font-bold uppercase text-bombardero-navy">${beer.nombre}</h4>
+                                </div>
+                                <span class="font-display font-bold text-base text-bombardero-navy">$${beer.precioLata}</span>
+                            </div>
+                            <div class="text-[10px] font-bold uppercase tracking-wider text-bombardero-gold mt-0.5">
+                                ${beer.estilo} • ${beer.abv}
+                            </div>
+                            <p class="text-xs text-bombardero-navy/70 mt-1.5 line-clamp-2">${beer.descripcion}</p>
+                        </div>
+
+                        <!-- Controles de Cantidad -->
+                        <div class="mt-4 pt-3 border-t border-bombardero-navy/5 flex items-center justify-between">
+                            <span class="text-[11px] text-bombardero-navy/50">Lata 355 ml</span>
+                            
+                            <div class="flex items-center gap-3">
+                                <button onclick="removeCan('${beer.id}')" ${qty === 0 ? 'disabled' : ''} class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-base transition ${qty > 0 ? 'bg-bombardero-creamDark text-bombardero-navy hover:bg-bombardero-navy hover:text-white' : 'bg-gray-100 text-gray-300 cursor-not-allowed'}">
+                                    −
+                                </button>
+                                <span class="font-display font-bold text-base w-4 text-center">${qty}</span>
+                                <button onclick="addCan('${beer.id}')" ${isFull ? 'disabled' : ''} class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-base transition ${!isFull ? 'bg-bombardero-navy text-white hover:bg-bombardero-gold hover:text-bombardero-navyDark' : 'bg-gray-100 text-gray-300 cursor-not-allowed'}">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function calculatePackTotal() {
+            let subtotal = 0;
+            for (const [id, qty] of Object.entries(packCart)) {
+                const beer = CERVEZAS.find(b => b.id === id);
+                if (beer) subtotal += beer.precioLata * qty;
+            }
+            // 10% de descuento al completar un 12-Pack
+            const totalCans = getTotalCans();
+            const hasDiscount = (packCapacity === 12 && totalCans === 12);
+            const finalTotal = hasDiscount ? Math.round(subtotal * 0.9) : subtotal;
+            return { subtotal, finalTotal, hasDiscount };
+        }
+
+        function updatePackUI() {
+            const totalCans = getTotalCans();
+            const missing = packCapacity - totalCans;
+            const { finalTotal, hasDiscount } = calculatePackTotal();
+
+            // Actualizar etiqueta de conteo
+            document.getElementById('pack-count-label').textContent = `${totalCans} / ${packCapacity}`;
+
+            // Renderizar slots visuales
+            const slotsContainer = document.getElementById('pack-slots-visual');
+            slotsContainer.className = `grid ${packCapacity === 6 ? 'grid-cols-6' : 'grid-cols-6 sm:grid-cols-12'} gap-1.5`;
+            
+            let filledColors = [];
+            for (const [id, qty] of Object.entries(packCart)) {
+                const beer = CERVEZAS.find(b => b.id === id);
+                for (let i = 0; i < qty; i++) {
+                    filledColors.push({ color: beer.colorHex, name: beer.nombre });
+                }
+            }
+
+            let slotsHTML = '';
+            for (let i = 0; i < packCapacity; i++) {
+                if (filledColors[i]) {
+                    slotsHTML += `
+                        <div class="h-8 rounded-lg border border-black/15 flex items-center justify-center shadow-xs transition-all" style="background-color: ${filledColors[i].color};" title="${filledColors[i].name}">
+                            <span class="text-[9px] font-bold text-bombardero-navyDark/80 bg-white/60 px-1 rounded">✓</span>
+                        </div>
+                    `;
+                } else {
+                    slotsHTML += `
+                        <div class="h-8 rounded-lg border border-dashed border-bombardero-navy/25 bg-white/50 flex items-center justify-center">
+                            <span class="text-[10px] text-bombardero-navy/30">${i + 1}</span>
+                        </div>
+                    `;
+                }
+            }
+            slotsContainer.innerHTML = slotsHTML;
+
+            // Actualizar barra inferior
+            const pill = document.getElementById('bar-status-pill');
+            const discountBadge = document.getElementById('bar-discount-badge');
+            const priceEl = document.getElementById('bar-total-price');
+            const orderBtn = document.getElementById('btn-order-whatsapp');
+
+            priceEl.textContent = `$${finalTotal}`;
+
+            if (hasDiscount) {
+                discountBadge.classList.remove('hidden');
+            } else {
+                discountBadge.classList.add('hidden');
+            }
+
+            if (missing === 0) {
+                pill.textContent = `¡${packCapacity}-Pack Listo!`;
+                pill.className = 'px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-400 text-bombardero-navyDark';
+                
+                orderBtn.disabled = false;
+                orderBtn.className = 'px-5 py-3 rounded-xl font-display uppercase tracking-wider text-sm font-bold transition-all flex items-center gap-2 bg-bombardero-gold hover:bg-bombardero-goldLight text-bombardero-navyDark shadow-lg cursor-pointer';
+            } else {
+                pill.textContent = `Falta${missing === 1 ? '' : 'n'} ${missing} lata${missing === 1 ? '' : 's'}`;
+                pill.className = 'px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-bombardero-gold text-bombardero-navyDark';
+                
+                orderBtn.disabled = true;
+                orderBtn.className = 'px-5 py-3 rounded-xl font-display uppercase tracking-wider text-sm font-bold transition-all flex items-center gap-2 bg-white/10 text-white/40 cursor-not-allowed';
+            }
+        }
+
+        // =====================================================================
+        // MODALES Y WHATSAPP CHECKOUT
+        // =====================================================================
+        function openOrderModal() {
+            const summaryContainer = document.getElementById('modal-pack-summary');
+            const { finalTotal, hasDiscount } = calculatePackTotal();
+
+            let itemsHTML = '';
+            for (const [id, qty] of Object.entries(packCart)) {
+                const beer = CERVEZAS.find(b => b.id === id);
+                itemsHTML += `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-bombardero-navy">${qty}x</span> ${beer.nombre}
+                            <span class="text-xs text-bombardero-navy/50">(${beer.estilo})</span>
+                        </div>
+                        <span class="font-semibold text-bombardero-navy">$${beer.precioLata * qty}</span>
+                    </div>
+                `;
+            }
+
+            if (hasDiscount) {
+                itemsHTML += `
+                    <div class="pt-2 border-t border-dashed border-bombardero-navy/15 flex justify-between items-center text-emerald-700 font-medium text-xs">
+                        <span>Descuento 12-Pack (10%)</span>
+                        <span>Aplicado</span>
+                    </div>
+                `;
+            }
+
+            summaryContainer.innerHTML = itemsHTML;
+            document.getElementById('modal-total').textContent = `$${finalTotal} MXN`;
+            document.getElementById('order-modal').classList.remove('hidden');
+        }
+
+        function closeOrderModal() {
+            document.getElementById('order-modal').classList.add('hidden');
+        }
+
+        function selectDelivery(method) {
+            deliveryMethod = method;
+            const btnPickup = document.getElementById('del-pickup');
+            const btnDom = document.getElementById('del-domicilio');
+            const addrInput = document.getElementById('customer-address');
+
+            if (method === 'pickup') {
+                btnPickup.className = 'p-2.5 rounded-xl border-2 border-bombardero-navy bg-bombardero-navy/5 text-left transition';
+                btnDom.className = 'p-2.5 rounded-xl border border-bombardero-navy/20 bg-white text-left transition';
+                addrInput.classList.add('hidden');
+            } else {
+                btnDom.className = 'p-2.5 rounded-xl border-2 border-bombardero-navy bg-bombardero-navy/5 text-left transition';
+                btnPickup.className = 'p-2.5 rounded-xl border border-bombardero-navy/20 bg-white text-left transition';
+                addrInput.classList.remove('hidden');
+            }
+        }
+
+        function sendWhatsAppOrder() {
+            const name = document.getElementById('customer-name').value.trim() || 'Aviador';
+            const address = document.getElementById('customer-address').value.trim();
+            const { finalTotal, hasDiscount } = calculatePackTotal();
+
+            let lines = [];
+            lines.push(`¡Hola Cervecería Bombarderos! ✈️🍺`);
+            lines.push(`Soy *${name}* y quiero pedir un *${packCapacity}-Pack*:`);
+            lines.push(``);
+
+            for (const [id, qty] of Object.entries(packCart)) {
+                const beer = CERVEZAS.find(b => b.id === id);
+                lines.push(`• ${qty}x ${beer.nombre}`);
+            }
+
+            lines.push(``);
+            if (hasDiscount) lines.push(`🏷️ *Descuento 12-Pack aplicado*`);
+            lines.push(`💰 *Total estimado:* $${finalTotal} MXN`);
+            
+            if (deliveryMethod === 'pickup') {
+                lines.push(`📍 *Entrega:* Paso a recoger al Taproom (Blvd. Hidalgo)`);
+            } else {
+                lines.push(`🛵 *Entrega:* A domicilio${address ? ` (${address})` : ''}`);
+            }
+
+            const phone = '526621936499'; // Número extraído del perfil de Instagram
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(lines.join('\n'))}`;
+            window.open(url, '_blank');
+            closeOrderModal();
+        }
+
+        function toggleInfoModal() {
+            const modal = document.getElementById('info-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2400);
+        }
+    </script>
+</body>
+</html>
